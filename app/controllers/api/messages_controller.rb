@@ -4,8 +4,8 @@ class Api::MessagesController < Api::ApplicationController
 
   def handle
     @message = Message.create(
-      from: params["From"],
-      to: params["To"],
+      from: Phone.where(number: params["From"]).first_or_create,
+      to: Phone.where(number: params["To"]).first_or_create,
       body: params["Body"],
       remote_id: params["MessageSid"],
       status: :sent
