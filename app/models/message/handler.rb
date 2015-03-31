@@ -24,7 +24,7 @@ class Message::Handler
   end
 
   def self.perform(*args)
-    new(*args).perform
+    new(*args).perform!
   end
 
   def initialize(params)
@@ -33,7 +33,7 @@ class Message::Handler
     end
   end
 
-  def perform
-    Message.create(from: Phone.find_by(from: from), to: Phone.find_by(to: to), body: body, remote_id: sms_message_id, state: :sent)
+  def perform!
+    Message.create(from: Phone.find_by(number: from), to: Phone.find_by(number: to), body: body, remote_id: sms_message_id, state: :sent)
   end
 end
