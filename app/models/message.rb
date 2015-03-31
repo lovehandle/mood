@@ -8,7 +8,7 @@ class Message < ActiveRecord::Base
   validates :from, presence: true
   validates :to, presence: true
 
-  after_create :enqueue_delivery, if: :pending?
+  before_create :enqueue_delivery, if: :pending?
 
   def remote
     client.messages.find(remote_id)
@@ -26,6 +26,7 @@ class Message < ActiveRecord::Base
 
   def enqueue_delivery
     DeliverMessageJob.perform_later(self)
+    self.status = :queued
   end
 
   def client
