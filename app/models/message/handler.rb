@@ -15,6 +15,7 @@ class Message::Handler
     "SmsMessageSid" => "sms_message_sid",
     "SmsStatus" => "sms_status",
     "NumMedia" => "num_media",
+    "MessageSid" => "message_sid",
     "AccountSid" => "account_sid",
     "ApiVersion" => "api_version"
   }
@@ -34,6 +35,6 @@ class Message::Handler
   end
 
   def perform!
-    Message.create(from: Phone.find_by(number: from), to: Phone.find_by(number: to), body: body, remote_id: sms_message_id, state: :sent)
+    Message.create(from: Phone.find_by(number: from), to: Phone.find_by(number: to), body: body, remote_id: message_sid, state: :sent)
   end
 end
