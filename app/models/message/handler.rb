@@ -34,6 +34,6 @@ class Message::Handler
   end
 
   def perform
-    Message.create(from: Phone.find_by(from: obj.from), to: Phone.find_by(to: obj.to), body: obj.body, remote_id: sms_message_id, state: :sent)
+    Message.create(from: Phone.find_by(from: from), to: Phone.find_by(to: to), body: body, remote_id: sms_message_id, state: :sent)
   end
 end
