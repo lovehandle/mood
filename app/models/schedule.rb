@@ -10,7 +10,7 @@ class Schedule < ActiveRecord::Base
   validates :time_offset, presence: true
   validates :zone_offset, presence: true
 
-  def wait_until(date = nil)
+  def time(date = nil)
     date ||= Date.today
 
     year = date.year
