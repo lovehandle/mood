@@ -6,8 +6,8 @@ class ScheduleMessageJob < ActiveJob::Base
     Message.create(
       from: schedule.from,
       to: schedule.to,
-      body: schedule.body,
-      state: :enqueued
+      body: schedule.question.body,
+      status: :queued
     ).tap do |message|
       DeliverMessageJob.set(wait_until: schedule.time).perform_later(message)
     end
